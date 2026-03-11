@@ -2,47 +2,35 @@ package br.com.itau.url_shortener_api.dto;
 
 import java.time.LocalDateTime;
 
-/**
- * DTO para resposta de encurtamento de URL.
- * 
- * Campos:
- * - id: Identificador único da URL encurtada
- * - originalUrl: URL original que foi encurtada
- * - shortId: ID único de 6 caracteres para a URL encurtada
- * - shortUrl: URL encurtada completa (ex: http://localhost:8080/r/XyZ123)
- * - creationDate: Data de criação da URL encurtada
- * - expirationDate: Data de expiração (pode ser nula)
- * - clickCount: Número de cliques/acessos à URL encurtada
- */
+import br.com.itau.url_shortener_api.entity.UrlEntity;
+
 public class ShortenUrlResponseDTO {
 
-	private Long id;
+	private String id;
 	private String originalUrl;
-	private String shortId;
 	private String shortUrl;
-	private LocalDateTime creationDate;
+	private LocalDateTime createdAt;
 	private LocalDateTime expirationDate;
 	private Long clickCount;
 
 	public ShortenUrlResponseDTO() {
 	}
 
-	public ShortenUrlResponseDTO(Long id, String originalUrl, String shortId, String shortUrl, 
-			LocalDateTime creationDate, LocalDateTime expirationDate, Long clickCount) {
+	public ShortenUrlResponseDTO(String id, String originalUrl, String shortUrl, 
+			LocalDateTime createdAt, LocalDateTime expirationDate, Long clickCount) {
 		this.id = id;
 		this.originalUrl = originalUrl;
-		this.shortId = shortId;
 		this.shortUrl = shortUrl;
-		this.creationDate = creationDate;
+		this.createdAt = createdAt;
 		this.expirationDate = expirationDate;
 		this.clickCount = clickCount;
 	}
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -54,14 +42,6 @@ public class ShortenUrlResponseDTO {
 		this.originalUrl = originalUrl;
 	}
 
-	public String getShortId() {
-		return shortId;
-	}
-
-	public void setShortId(String shortId) {
-		this.shortId = shortId;
-	}
-
 	public String getShortUrl() {
 		return shortUrl;
 	}
@@ -70,12 +50,12 @@ public class ShortenUrlResponseDTO {
 		this.shortUrl = shortUrl;
 	}
 
-	public LocalDateTime getCreationDate() {
-		return creationDate;
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
 	}
 
-	public void setCreationDate(LocalDateTime creationDate) {
-		this.creationDate = creationDate;
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
 	}
 
 	public LocalDateTime getExpirationDate() {
@@ -93,11 +73,22 @@ public class ShortenUrlResponseDTO {
 	public void setClickCount(Long clickCount) {
 		this.clickCount = clickCount;
 	}
+	
+	public static ShortenUrlResponseDTO fromEntity(UrlEntity urlEntity, String shortUrl) {
+	    return new ShortenUrlResponseDTO(
+	        urlEntity.getShortId(),
+	        urlEntity.getOriginalUrl(),
+	        shortUrl + urlEntity.getShortId(),
+	        urlEntity.getCreatedAt(),
+	        urlEntity.getExpirationDate(),
+	        urlEntity.getClickCount()
+	    );
+	}
 
 	@Override
 	public String toString() {
-		return "ShortenUrlResponseDTO [id=" + id + ", originalUrl=" + originalUrl + ", shortId=" + shortId
-				+ ", shortUrl=" + shortUrl + ", creationDate=" + creationDate + ", expirationDate=" + expirationDate
+		return "ShortenUrlResponseDTO [id=" + id + ", originalUrl=" + originalUrl
+				+ ", shortUrl=" + shortUrl + ", createdAt=" + createdAt + ", expirationDate=" + expirationDate
 				+ ", clickCount=" + clickCount + "]";
 	}
 }

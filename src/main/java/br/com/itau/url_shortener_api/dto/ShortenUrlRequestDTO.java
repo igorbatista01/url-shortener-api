@@ -2,15 +2,19 @@ package br.com.itau.url_shortener_api.dto;
 
 import java.time.LocalDateTime;
 
+import org.hibernate.validator.constraints.URL;
+
 import jakarta.validation.constraints.NotBlank;
-//import jakarta.validation.constraints.URL;
+
+
 
 
 public class ShortenUrlRequestDTO {
 
-	@NotBlank(message = "A URL original não pode estar em branco")
-	//@URL(message = "A URL original deve ser uma URL válida")
+	@NotBlank(message = "A URL não pode ser vazia")
+	@URL(message = "A URL original deve ser válida")
 	private String originalUrl;
+	
 
 	private LocalDateTime expirationDate;
 

@@ -18,7 +18,7 @@ import jakarta.validation.Valid;
 @RequestMapping("/v1/urls")
 public class UrlController {
 
-	private static final String SHORT_URL_PREFIX = "http://localhost:8080/r/";
+	private static final String SHORT_URL_PREFIX = "http://localhost:8081/r/";
 
 	private final UrlService urlService;
 
@@ -26,23 +26,12 @@ public class UrlController {
 		this.urlService = urlService;
 	}
 
+
 	@PostMapping
 	public ResponseEntity<ShortenUrlResponseDTO> createShortenUrl(@Valid @RequestBody ShortenUrlRequestDTO requestDTO) {
-		//  URL encurtada
-		UrlEntity urlEntity = urlService.createShortUrl(requestDTO.getOriginalUrl());
+		UrlEntity urlEntity = urlService.createShortUrl(requestDTO.getOriginalUrl(), requestDTO.getExpirationDate());
 		
-
-		ShortenUrlResponseDTO responseDTO = new ShortenUrlResponseDTO(
-			urlEntity.getId(),
-			urlEntity.getOriginalUrl(),
-			urlEntity.getShortId(),
-			SHORT_URL_PREFIX + urlEntity.getShortId(),
-			urlEntity.getCreationDate(),
-			urlEntity.getExpirationDate(),
-			urlEntity.getClickCount()
-		);
-
-		// Retorna o status 201 Created com o ResponseDTO
+		ShortenUrlResponseDTO responseDTO = ShortenUrlResponseDTO.fromEntity(urlEntity, SHORT_URL_PREFIX);
 		return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
 	}
 }

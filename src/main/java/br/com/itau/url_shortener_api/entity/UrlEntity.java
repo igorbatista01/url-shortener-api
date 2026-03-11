@@ -1,7 +1,6 @@
 package br.com.itau.url_shortener_api.entity;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -31,7 +30,7 @@ public class UrlEntity {
 	String shortId;
 	
 	@Column(nullable = false)
-	LocalDateTime creationDate;
+	LocalDateTime createdAt;
 	
 
 	public Long getId() {
@@ -74,12 +73,12 @@ public class UrlEntity {
 		this.shortId = shortId;
 	}
 
-	public LocalDateTime getCreationDate() {
-		return creationDate;
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
 	}
 
-	public void setCreationDate(LocalDateTime creationDate) {
-		this.creationDate = creationDate;
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
 	}
 	
 	
