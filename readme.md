@@ -2,7 +2,7 @@
 
 Esta é uma API RESTful desenvolvida para encurtar URLs (estilo bit.ly), redirecionar acessos e contabilizar cliques. O projeto foi construído focando em simplicidade, Clean Code e princípios SOLID, evitando overengineering, conforme solicitado no desafio.
 
-## 🛠️ Stack Tecnológica
+## Stack Tecnológica
 
 * **Linguagem:** Java 
 * **Framework:** Spring Boot 3
@@ -12,7 +12,7 @@ Esta é uma API RESTful desenvolvida para encurtar URLs (estilo bit.ly), redirec
 * **Testes:** JUnit 5, MockMvc e Spring Boot Test.
 * **Outros:** Apache Commons Lang (para geração de strings seguras), Docker
 
-## 🏗️ Decisões de Arquitetura
+##  Decisões de Arquitetura
 
 1.  **Geração do ID Curto e Colisões:**
     * **Estratégia:** Foi adotada a geração de uma string alfanumérica aleatória (Base62) com 6 caracteres via `RandomStringUtils`.
@@ -24,7 +24,7 @@ Esta é uma API RESTful desenvolvida para encurtar URLs (estilo bit.ly), redirec
 4.  **Tratamento de Erros Global:**
     * Foi implementado um `@RestControllerAdvice` (`GlobalExceptionHandler`) para interceptar exceções (como erro de validação do `@Valid` e `ResourceNotFoundException`), padronizando o JSON de resposta de erro conforme exigido.
 
-## 🚀 Como Executar o Projeto
+## Como Executar o Projeto
 
 **Pré-requisitos:** Java 17+ e Maven instalados.
 
@@ -45,7 +45,7 @@ Esta é uma API RESTful desenvolvida para encurtar URLs (estilo bit.ly), redirec
    ```bash
    docker-compose up --build
 
-## 🧪 Como Rodar os Testes
+##  Como Rodar os Testes
 
 O projeto conta com testes de integração que cobrem o fluxo de ponta a ponta usando o banco de dados H2.
 
